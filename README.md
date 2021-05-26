@@ -21,9 +21,9 @@ To access the Jupyter Notebook that I created, run in the root folder of the `ju
   .
   |-reports
   |  |- markdown
-  |  |  |- Forecasting passenger traffic challenge.md
+  |  |  |- Shampoo Sales.md
   |-data
-  |- Forecasting passenger traffic.ipynb
+  |- Shampoo Sales.ipynb
   |- requirements.txt
   |- cluster_helper.py
   |- tmcm_feature_engineering.py
