@@ -25,8 +25,6 @@ To access the Jupyter Notebook that I created, run in the root folder of the `ju
   |-data
   |- Shampoo Sales.ipynb
   |- requirements.txt
-  |- cluster_helper.py
-  |- tmcm_feature_engineering.py
 ```
 
 The folder `report` contains an md file with a version of the report generated from the study done on that project. This file contains **all the insights and studies that were done, as well as a detailed description of how the project was developed**.
