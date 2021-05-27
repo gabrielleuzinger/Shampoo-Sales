@@ -214,7 +214,7 @@ print(df_date.columns)
 
 Therefore, we will start our analysis making some graphics that are useful for understanding timeseries. The obvious graph to start is a time plot.
 
-The time plot shows that there is considerable varation from one month to the next. Besides, there seems to be a clear trend (long-term increase or decrease in the data). The number of passengers per month does not seem to be affected by seasonal (fluctuations with a fixed frequency) factors though. And the time series does not seem to be cyclic (fluctuations without a fixed frequency).
+The time plot shows that there is considerable varation from one month to the next. Besides, there seems to be a clear trend (long-term increase or decrease in the data). The number of sale per month does not seem to be affected by seasonal (fluctuations with a fixed frequency) factors though. And the time series does not seem to be cyclic (fluctuations without a fixed frequency).
 
 Next, we check for seasonal patterns. The seasonal plot and seasonal polar plot confirm that there is no seasonality in the data considering the same months year by year. However, these plots give more indications that there is a trend in the data because the values are consistently increasing from one year to another.
 
@@ -596,7 +596,7 @@ The tests confirm that the data series is **not stationary**. The p-value is 1 f
 
 Therefore, we need to **extract the trend component** of our data before trying to create a forecasting model. The first step is to decompose the data in its components, S (seasonal component), T (trend-cycle component), and R (remainder component) (HYNDMAN; ATHANASOPOULOS, 2018; HOLMES; SCHEURELL; WARD, 2021). There are many different methods for decomposing data. There are the so called 'classical decomposition methods': the additive and multiplicative methods. Besides, there are more recent methods, such as X11, Seasonal Extraction in ARIMA Time Series (SEATS), and Seasonal and Trend decomposition using Loess (STS). The [statsmodels library](https://www.statsmodels.org/stable/index.html) provides many of these methods. Therfore, we can easily try more than one of them.
 
-Both the classical decomposition methods and the STL method confirm that the **data have a trend component**. Moreover, **there is also seasonal component** that was not detected in the exploratory analysis. However, these are 'naive' decompositions, thus we should use a more versatile and robust method. 
+Both the classical decomposition methods confirm that the **data have a trend component**. Moreover, **there is also seasonal component** that was not detected in the exploratory analysis. However, these are 'naive' decompositions, thus we should use a more versatile and robust method. 
 
 Thus, we can use the STL method to check our previous results. We use two kinds of STL methods. In the first case, we activate the 'robust' feature, which uses a data-dependent weighting function that re-weights data when estimating the LOESS (and so is using LOWESS). **Using robust estimation allows the model to tolerate larger errors**. In the second case, we do not activate the robust feature. Besides, we use the decomposed components to measure the strenght of trend and seasonality in the time series. In this case, the closer Ft and Fs are to 1, the higher is the strenght.
 
@@ -1086,7 +1086,7 @@ Finally, we can try some models the combines AR and MA. We use an ARMA model fir
 
 We use two criteria to evaluate the models, the AICc and the MASE. Both cirteria give suggests different orders for the ARMA model: (14,8) and (5,5). Testing both models with the test set, we verify that the ARMA(5,5) performs better for all other types of erros, MAE, RMSE, and MAPE. Therefore the best ARMA model for our data have order of the autoregressive part of 10 and order of the moving average part of 10. **This model have a MASE of 2.119, and it stills performs worse than the naive method**.
 
-Regarding the ARIMA model, we can try to use the model directly with our data, without differencing, because the differencing is part of the model. We should remove the seasonal component form the data before using the ARIMA model. However, since the seasonal component is not as strenght as the trend component in our time series, we can trying using the ARIMA directly and check how it performs. We verify that the best ARIMA model for our data have order of the autoregressive part of 8, order of the moving average part of 2, and order of the differencing part 2. As expected, the differencing part have an order great than 0 due to the necessity of differencing the data. **This model have a MASE of 0.730, performing better than the other models and is the first one to perform better htan the naive method**.
+Regarding the ARIMA model, we can try to use the model directly with our data, without differencing, because the differencing is part of the model. We should remove the seasonal component form the data before using the ARIMA model. However, since the seasonal component is not as strenght as the trend component in our time series, we can trying using the ARIMA directly and check how it performs. We verify that the best ARIMA model for our data have order of the autoregressive part of 8, order of the moving average part of 2, and order of the differencing part 2. As expected, the differencing part have an order great than 0 due to the necessity of differencing the data. **This model have a MASE of 0.730, performing better than the other models and is the first one to perform better than the naive method**.
 
 ------------------------------------
 
@@ -2232,20 +2232,30 @@ plt.show()
 
 
 ```python
-MAE = median_absolute_error(test_set_diff['Sales_diff'], y_hat_MA_diff['Sales'])
-RMSE = mean_squared_error(test_set_diff['Sales_diff'], y_hat_MA_diff['Sales'],squared=False)
-MAPE = mean_absolute_percentage_error(test_set_diff['Sales_diff'], y_hat_MA_diff['Sales'])
-MASE = MASE_func(train_set_diff['Sales_diff'],test_set_diff['Sales_diff'],y_hat_MA_diff['Sales'])
+MAE = median_absolute_error(test_set['Sales'], y_hat_MA_diff['Sales'])
+RMSE = mean_squared_error(test_set['Sales'], y_hat_MA_diff['Sales'],squared=False)
+MAPE = mean_absolute_percentage_error(test_set['Sales'], y_hat_MA_diff['Sales'])
+MASE = MASE_func(train_set['Sales'],test_set['Sales'],y_hat_MA_diff['Sales'])
 print('MAE=%.3f'% MAE)
 print('RMSE=%.3f'% RMSE)
 print('MAPE=%.3f'% MAPE)
 print('MASE=%.3f'% MASE)
 ```
 
-    MAE=368.862
-    RMSE=389.205
-    MAPE=4.204
-    MASE=2.695
+
+    ---------------------------------------------------------------------------
+
+    NameError                                 Traceback (most recent call last)
+
+    <ipython-input-1-f5d32a4dcbf1> in <module>
+    ----> 1 MAE = median_absolute_error(test_set['Sales'], y_hat_MA_diff['Sales'])
+          2 RMSE = mean_squared_error(test_set['Sales'], y_hat_MA_diff['Sales'],squared=False)
+          3 MAPE = mean_absolute_percentage_error(test_set['Sales'], y_hat_MA_diff['Sales'])
+          4 MASE = MASE_func(train_set['Sales'],test_set['Sales'],y_hat_MA_diff['Sales'])
+          5 print('MAE=%.3f'% MAE)
+
+
+    NameError: name 'median_absolute_error' is not defined
 
 
 
