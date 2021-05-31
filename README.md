@@ -19,7 +19,7 @@ To access the Jupyter Notebook that I created, run in the root folder of the `ju
 
 ```{sh}
   .
-  |-reports
+  |-report
   |  |- markdown
   |  |  |- Shampoo Sales.md
   |-data
