@@ -16,7 +16,7 @@ The notebook is dividede as follows:
 In this section, we explore the characteristics of the dataset, including its dimensions and characteristics of its variables.
 
 The dataset contains only two columns and 36 lines.
-The first column of the dataset contains strings denoting the month number and the second column cotains integers denoting the number of passengers for that month.
+The first column of the dataset contains strings denoting the month number and the second column cotains integers denoting the number of sales for that month.
 
 
 ```python
@@ -2830,3 +2830,13 @@ In this notebook, we were able to analyze and forecast a time series. After prep
 4. Autoregressive integrated moving average model (ARIMA)
 
 We verified that the best model for forcastings based on our time series is an ARIMA(8,2,10). The mean absolute scaled error (MASE) of 0.730 when we applied our model to the testing set showed that our model perfomrs better than the naive method. Therefore, we are confident that our model will make the best possible predictions based on the data available.
+
+
+```python
+!pip install -r requirements.txt
+
+!pip3 freeze > requirements.txt
+```
+
+    [31mERROR: Could not open requirements file: [Errno 2] No such file or directory: 'requirements.txt'[0m
+
